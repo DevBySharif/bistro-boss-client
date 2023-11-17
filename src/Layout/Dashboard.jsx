@@ -11,8 +11,9 @@ import {
   FaUtensilSpoon,
 } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
+import useAdmin from "../Hooks/useAdmin";
 const Dashboard = () => {
-  const isAdmin = true;
+  const [isAdmin] = useAdmin();
   return (
     <div className="flex">
       <div className="w-64 min-h-full bg-amber-400">
