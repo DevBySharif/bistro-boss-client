@@ -12,7 +12,9 @@ const useAxiosSecure = () => {
     function (config) {
       const token = localStorage.getItem("access-token");
       console.log("req stopped by interceptors", token);
-      config.headers.authorization = `Bearer ${token}`;
+      if (token) {
+        config.headers.authorization = `Bearer ${token}`;
+      }
       return config;
     },
     function (error) {
@@ -28,7 +30,10 @@ const useAxiosSecure = () => {
       const status = error.response.status;
       if (status === 401 || status === 403) {
         await signOutUser();
-        navigate("/login");
+
+        useEffect(() => {
+          navigate("/login");
+        }, []);
       }
       return Promise.reject(error);
     }
